@@ -1,1 +1,88 @@
-<p>login works!</p>
+<div
+  class="flex items-center justify-center min-h-screen bg-gray-100 ml-[-140px]"
+>
+  <div
+    class="bg-white shadow-lg rounded-lg flex flex-col md:flex-row max-w-4xl w-full"
+  >
+    <!-- Left Side (Image Section) -->
+    <div
+      class="w-full md:w-1/2 bg-blue-100 p-8 flex items-center justify-center"
+    >
+      <div>
+        <img
+          src="/assets/login.jpg"
+          alt="Illustration of secure login process"
+          class="w-full max-w-sm rounded-lg shadow-md"
+        />
+      </div>
+    </div>
+
+    <!-- Right Side (Form Section) -->
+    <div class="w-full md:w-1/2 p-8">
+      <div class="flex justify-end">
+        <p class="text-gray-500 mt-2">
+          Forgot your Password?
+          <button
+            class="ml-2 text-blue-600 font-semibold"
+            (click)="navigateToResetPassword()"
+          >
+            Reset Password
+          </button>
+        </p>
+      </div>
+
+      <h2 class="text-3xl font-bold mt-4">Welcome Back!</h2>
+      <p class="text-gray-500 mb-6">Login to your account</p>
+      <form (ngSubmit)="onLogin()">
+        <div class="mb-4">
+          <label class="block text-gray-700">Email Address</label>
+          <input
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            required
+            class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your email"
+          />
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700">Role</label>
+          <select
+            [(ngModel)]="role"
+            name="role"
+            required
+            class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Superadmin"
+          >
+            <option value="SuperAdmin">Superadmin</option>
+            <option value="Admin">Admin</option>
+          </select>
+        </div>
+        <div class="mb-6 relative">
+          <label class="block text-gray-700">Password</label>
+          <input
+            [(ngModel)]="password"
+            name="password"
+            [type]="showPassword ? 'text' : 'password'"
+            required
+            class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+            placeholder="Enter your password"
+          />
+          <i
+            class="fas absolute right-3 top-10 text-gray-500 cursor-pointer"
+            [class.fa-eye]="!showPassword"
+            [class.fa-eye-slash]="showPassword"
+            (click)="togglePasswordVisibility()"
+          ></i>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white rounded-lg p-2 mt-4 hover:bg-blue-700 transition-all duration-200"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

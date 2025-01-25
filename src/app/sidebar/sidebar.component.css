@@ -1,5 +1,5 @@
 /* Hide sidebar by default for mobile */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .-translate-x-full {
     transform: translateX(-100%);
   }
@@ -7,9 +7,9 @@
   .translate-x-0 {
     transform: translateX(0);
   }
-}
+} */
 
 /* Full height for sidebar */
-h-screen {
+/* h-screen {
   height: 100vh;
-}
+} */
