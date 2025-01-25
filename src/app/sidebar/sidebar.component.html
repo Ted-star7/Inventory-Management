@@ -1,0 +1,51 @@
+<!-- Sidebar -->
+<div
+  class="bg-blue-900 text-white h-screen p-3 fixed md:w-1/5 w-64 z-50 flex flex-col justify-between transition-transform duration-300"
+  [class.-translate-x-full]="isSidebarHidden && isSmallScreen"
+  [class.translate-x-0]="!isSidebarHidden || !isSmallScreen"
+>
+  <!-- Profile Section -->
+  <div class="flex flex-col items-center mb-4">
+    <i class="fas fa-user-circle text-5xl text-white mb-3"></i>
+    <div class="text-center">
+      <h2 class="text-base font-semibold">Teddy Kibuthu</h2>
+      <p class="text-sm text-gray-300">teddykibuthu26&#64;gmail.com</p>
+    </div>
+  </div>
+
+  <!-- Navigation Links -->
+  <nav>
+    <ul>
+      <li *ngFor="let item of navItems" class="mb-4">
+        <a
+          [routerLink]="item.link"
+          routerLinkActive="bg-blue-700 text-yellow-300"
+          class="flex items-center px-3 py-2 rounded-md hover:bg-blue-700 hover:text-yellow-300 transition-all duration-200"
+        >
+          <i class="{{ item.icon }} mr-3"></i>
+          <span>{{ item.label }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Logout Section -->
+  <div class="mt-auto pt-4 border-t border-blue-700">
+    <a
+      (click)="logout()"
+      routerLink="/"
+      class="flex items-center px-3 py-2 text-red-500 hover:text-red-300 hover:bg-red-900 rounded-md cursor-pointer transition-all duration-200"
+    >
+      <i class="fas fa-sign-out-alt mr-3"></i>
+      Logout
+    </a>
+  </div>
+</div>
+
+<!-- Toggle Button for Small Screens -->
+<button
+  class="fixed top-4 left-4 z-50 p-2 bg-blue-900 text-white rounded-md md:hidden"
+  (click)="toggleSidebar()"
+>
+  <i class="fas fa-bars"></i>
+</button>

@@ -1,36 +1,39 @@
-/* app.component.css */
-
 /* Set up a flex container for the entire page */
 .container {
   display: flex;
   min-height: 100vh;
   /* Ensure the content takes at least full height */
   position: relative;
+  left: -90px;
 }
 
-/* Sidebar will have fixed width and full height */
+/* Main content area */
+.outlet {
+  flex-grow: 1;
+  /* Let the main content take up all available space */
+  padding: 20px;
+  /* Add some padding inside the content */
+  transition: margin-left 0.3s ease;
+}
+
+/* Sidebar container */
 .sidebar {
   width: 280px;
   /* Adjust sidebar width */
   position: fixed;
-  /* Fix the sidebar on the left side */
+  /* Fix the sidebar on the left */
   top: 0;
   left: 0;
+  /* Initially move the sidebar 100px off-screen */
   bottom: 0;
   background-color: #1e3a8a;
   /* Blue background */
   color: white;
   padding: 16px;
   z-index: 10;
-  /* Ensure the sidebar stays above other content */
-}
-
-/* The content area will take the remaining space */
-.outlet {
-  flex-grow: 1;
-  margin-left: 250px;
-  /* Add space for the sidebar */
-  padding: 20px;
+  /* Ensure the sidebar is above the content */
+  transition: left 0.3s ease-in-out;
+  /* Smooth transition for moving sidebar */
 }
 
 /* For small screens, adjust the layout */
@@ -39,7 +42,7 @@
     position: absolute;
     top: 0;
     left: -280px;
-    /* Initially hide the sidebar */
+    /* Initially hide the sidebar off-screen */
     width: 280px;
     transition: left 0.3s ease-in-out;
   }
@@ -53,4 +56,16 @@
     margin-left: 0;
     /* Remove margin for small screens */
   }
+}
+
+/* Main content has a left margin to avoid overlapping with the sidebar */
+.container .outlet {
+  margin-left: 280px;
+  /* Space for the sidebar */
+}
+
+/* Responsive behavior for the main content when sidebar is hidden */
+.container .outlet.no-sidebar {
+  margin-left: 0;
+  /* Remove the left margin if sidebar is hidden */
 }

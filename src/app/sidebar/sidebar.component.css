@@ -1,15 +1,193 @@
-/* Hide sidebar by default for mobile */
-/* @media (max-width: 768px) {
-  .-translate-x-full {
-    transform: translateX(-100%);
-  }
+/* Sidebar container */
+.bg-blue-900 {
+  background-color: #1e3a8a;
+  /* Blue background */
+}
 
-  .translate-x-0 {
-    transform: translateX(0);
-  }
-} */
+.text-white {
+  color: #fff;
+  /* White text */
+}
 
-/* Full height for sidebar */
-/* h-screen {
+.h-screen {
   height: 100vh;
-} */
+  /* Full viewport height */
+}
+
+.p-3 {
+  padding: 1rem;
+  /* Padding around sidebar */
+}
+
+.fixed {
+  position: fixed;
+  /* Fix sidebar to the left */
+}
+
+
+
+.w-64 {
+  width: 16rem;
+  /* Sidebar width for smaller screens */
+}
+
+.z-50 {
+  z-index: 50;
+  /* Ensure sidebar appears above other elements */
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.justify-between {
+  justify-content: space-between;
+  /* Space out the sidebar sections */
+}
+
+.transition-transform {
+  transition: transform 0.3s ease-in-out;
+  /* Smooth transition for sidebar toggle */
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+  /* Margin for elements in the sidebar */
+}
+
+.mt-auto {
+  margin-top: auto;
+  /* Align the logout button to the bottom */
+}
+
+.pt-4 {
+  padding-top: 1rem;
+  /* Padding on top of the logout section */
+}
+
+.border-t {
+  border-top: 1px solid #1e40af;
+  /* Blue border for the logout section */
+}
+
+/* Profile section */
+.text-center {
+  text-align: center;
+  /* Center the profile text */
+}
+
+.text-base {
+  font-size: 1rem;
+  /* Base font size */
+}
+
+.font-semibold {
+  font-weight: 600;
+  /* Semi-bold font for name */
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  /* Smaller font for email */
+}
+
+.text-gray-300 {
+  color: #d1d5db;
+  /* Lighter gray color for the email text */
+}
+
+/* Navigation links */
+.nav-item {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.nav-item:hover {
+  background-color: #2563eb;
+  /* Tailwind blue-600 */
+  color: #facc15;
+  /* Tailwind yellow-300 */
+}
+
+.routerLinkActive {
+  background-color: #2563eb;
+  /* Active state for links */
+  color: #facc15;
+  /* Active link color */
+}
+
+/* Logout section */
+.text-red-500 {
+  color: #ef4444;
+  /* Red color for logout */
+}
+
+.text-red-300 {
+  color: #fca5a5;
+  /* Lighter red on hover */
+}
+
+.hover\:text-red-300:hover {
+  color: #fca5a5;
+  /* Lighter red when hovering */
+}
+
+.hover\:bg-red-900:hover {
+  background-color: #b91c1c;
+  /* Darker red background on hover */
+}
+
+/* Sidebar toggle button for small screens */
+.md\:hidden {
+  display: none;
+  /* Hide button on medium screens and above */
+}
+
+.fixed {
+  position: fixed;
+  /* Position it fixed */
+}
+
+.top-4 {
+  top: 1rem;
+  /* Top padding for the button */
+}
+
+.left-4 {
+  left: 1rem;
+  /* Left padding for the button */
+}
+
+.z-50 {
+  z-index: 50;
+  /* Ensure toggle button stays on top */
+}
+
+.bg-blue-900 {
+  background-color: #1e3a8a;
+  /* Same blue for the toggle button */
+}
+
+.text-white {
+  color: #fff;
+  /* White text */
+}
+
+.p-2 {
+  padding: 0.5rem;
+  /* Padding for the toggle button */
+}
+
+.rounded-md {
+  border-radius: 0.375rem;
+  /* Rounded corners */
+}
+
+.cursor-pointer {
+  cursor: pointer;
+  /* Pointer cursor on hover */
+}

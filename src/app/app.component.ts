@@ -1,40 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { Router, NavigationEnd } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent  {
+export class AppComponent implements OnInit {
   title = 'Inventory-management';
-  // hideSidebar: boolean = false;
+  hideSidebar = false;
 
-  constructor(public router: Router) { }
+  constructor(private router: Router) { }
 
-  // ngOnInit() {
-  //   this.router.events.subscribe((event) => {
-  //     if (event instanceof NavigationEnd) {
-  //       this.checkRoute(event.urlAfterRedirects);
-  //     }
-  //   });
-  // }
-  // checkRoute(url: string) {
-  //   const hideSidebarRoutes = ['', '/login'];
-  //   this.hideSidebar = hideSidebarRoutes.includes(url);
-  // }
+  
 
-
-
-
-
-  // toggleSidebar() {
-  //   const sidebar = document.querySelector('.sidebar');
-  //   sidebar?.classList.toggle('show');
-  // }
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const currentRoute = event.urlAfterRedirects;
+        this.hideSidebar = currentRoute === '/' || currentRoute === '/resetpassword';
+      }
+    });
+  }
 }
