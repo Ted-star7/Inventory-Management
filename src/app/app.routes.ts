@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { OrdersComponent } from './orders/orders.component';
 import { PurchaseComponent } from './purchase/purchase.component';
-import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent }, // Default route (Login Page)
@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'sidebar', component: SidebarComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'inventory', component: InventoryComponent },
-  { path: 'resetpassword', component: ResetpasswordComponent},
+  { path: 'resetpassword', component: ResetPasswordComponent},
   { path: '**', redirectTo: '' }, // Fallback route
 ];
 
