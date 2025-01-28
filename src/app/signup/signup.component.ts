@@ -18,7 +18,7 @@ export class SignupComponent {
   email: string | undefined;
   password: string | undefined;
   role: string | undefined;
-isPasswordVisible: any;
+  isPasswordVisible: boolean = false;
 
   constructor(
     private router: Router,
@@ -37,11 +37,12 @@ isPasswordVisible: any;
     this.consumeService.postRequest('/api/open/users/signup', formData, null).subscribe(
       (response) => {
         response = JSON.parse(response);
-        if (response.success) {
-          this.snackBar.open('Signup Successful', 'Close', {
+        if (response.status === 'success') {
+          this.snackBar.open('Signup Successful: ' + response.message, 'Close', {
             duration: 3000,
           });
-          this.router.navigate(['/dashboard']);  // Navigate to dashboard after successful signup
+          this.resetForm();
+          this.router.navigate(['/dashboard']);
         } else {
           this.snackBar.open('Signup Failed: ' + response.message, 'Close', {
             duration: 5000,
@@ -55,10 +56,17 @@ isPasswordVisible: any;
         });
       }
     );
-    
   }
 
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  
+  resetForm(): void {
+    this.username = '';
+    this.email = '';
+    this.password = '';
+    this.role = '';
   }
 }

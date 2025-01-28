@@ -34,6 +34,12 @@ export class LoginComponent {
     this.router.navigate(['/resetpassword']);
   }
 
+  resetform(): void{
+    this.email ='';
+    this.password ='';
+    this.role='';
+  }
+
   onLogin(): void {
     const formData = {
       email: this.email,
@@ -46,21 +52,23 @@ export class LoginComponent {
         response = JSON.parse(response);
 
         // Check if the response contains the message and token
-        if (response.message === 'Login successful' && response.token) {
+        if (response.status === 'success' ) {
           const token = response.token;
           const userId = response.userId;
           const role = response.role;
+          const userName = response.userName;
 
           if (token && userId) {
             // Save session data
             this.sessionService.saveToken(token);
             this.sessionService.saveUserId(userId);
             this.sessionService.saverole(role);
+            this.sessionService.saveuserName(userName);
 
             this.snackBar.open('Login Successful', 'Close', {
               duration: 3000,
             });
-
+            this.resetform();
             this.router.navigate(['/dashboard']);  // Navigate to dashboard
           } else {
             console.error('Token or userId is undefined or null');

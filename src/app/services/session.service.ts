@@ -30,8 +30,20 @@ export class SessionService {
     }
   }
 
+  public saveuserName(userName: string): void {
+    try {
+      sessionStorage.setItem('userName', userName);
+    } catch (error) {
+      console.error('Error saving role in session storage:', error);
+    }
+  }
+
   public getToken(): string | null {
     return sessionStorage.getItem('token');
+  }
+
+  public getuserName(): string | null {
+    return sessionStorage.getItem('userName');
   }
 
   public getUserId(): string | null {

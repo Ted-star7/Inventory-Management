@@ -56,12 +56,12 @@ export class ResetPasswordComponent implements OnInit {
   onEmailSubmit(): void {
     if (this.email) {
       this.consumeService
-        .postRequest('/api/open/auth/reset-password/request', { email: this.email }, null)
+        .postRequest('/api/open/users/send-otp', { email: this.email }, null)
         .subscribe(
           () => {
             this.showSnackbar('OTP has been sent to your email.');
-            this.step = 2; // Slide to the next form
-            this.startOtpTimer(); // Restart the OTP timer
+            this.step = 2; // Switch to Step 2
+            this.startOtpTimer();
           },
           (error) => {
             this.showSnackbar('Failed to send OTP. Please try again.');
@@ -70,6 +70,7 @@ export class ResetPasswordComponent implements OnInit {
         );
     }
   }
+
 
   // Handle OTP resend
   onResendOtp(): void {
@@ -99,7 +100,7 @@ export class ResetPasswordComponent implements OnInit {
         newPassword: this.newPassword,
       };
 
-      this.consumeService.postRequest('/api/open/auth/reset-password/confirm', resetData, null)
+      this.consumeService.postRequest('/api/open/users/verify-otp-and-change-password', resetData, null)
         .subscribe(
           () => {
             this.isLoading = false;
