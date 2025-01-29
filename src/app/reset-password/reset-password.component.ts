@@ -61,6 +61,7 @@ export class ResetPasswordComponent implements OnInit {
           () => {
             this.showSnackbar('OTP has been sent to your email.');
             this.step = 2; // Switch to Step 2
+            console.log('Step updated to:', this.step); // Debugging
             this.startOtpTimer();
           },
           (error) => {
@@ -70,6 +71,7 @@ export class ResetPasswordComponent implements OnInit {
         );
     }
   }
+
 
 
   // Handle OTP resend

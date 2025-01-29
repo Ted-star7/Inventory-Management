@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class SignupComponent {
 
-  username: string | undefined;
+  userName: string | undefined;
   email: string | undefined;
   password: string | undefined;
   role: string | undefined;
@@ -28,7 +28,7 @@ export class SignupComponent {
 
   onSignup(): void {
     const formData = {
-      username: this.username,
+      userName: this.userName,
       email: this.email,
       password: this.password,
       role: this.role
@@ -64,7 +64,7 @@ export class SignupComponent {
 
   
   resetForm(): void {
-    this.username = '';
+    this.userName = '';
     this.email = '';
     this.password = '';
     this.role = '';

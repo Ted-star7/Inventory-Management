@@ -18,7 +18,7 @@ export class SidebarComponent {
     { label: 'Inventory', link: '/inventory', icon: 'fas fa-boxes' },
     { label: 'Orders', link: '/orders', icon: 'fas fa-shopping-cart' },
     { label: 'Purchase', link: '/purchase', icon: 'fas fa-shopping-bag' },
-    { label: 'Admin', link: '/signup', icon: 'fas fa-cog' },
+    { label: 'Manage', link: '/manage', icon: 'fas fa-cog' },
   ];
 
   constructor() {

@@ -47,7 +47,7 @@ export class LoginComponent {
       role: this.role
     };
 
-    this.consumeService.postRequest('/api/open/registration/login', formData, null).subscribe(
+    this.consumeService.postRequest('/api/open/users/login', formData, null).subscribe(
       (response) => {
         response = JSON.parse(response);
 
