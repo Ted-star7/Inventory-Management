@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SessionService } from '../services/session.service'; 
 
 @Component({
   selector: 'app-sidebar',
@@ -13,28 +14,33 @@ export class SidebarComponent {
   isSidebarHidden = false;
   isSmallScreen = false;
 
+  userName: string = 'User'; // Default placeholder
+  role: string = 'Role'; // Default placeholder
+
   navItems = [
     { label: 'Dashboard', link: '/dashboard', icon: 'fas fa-tachometer-alt' },
     { label: 'Inventory', link: '/inventory', icon: 'fas fa-boxes' },
     { label: 'Orders', link: '/orders', icon: 'fas fa-shopping-cart' },
     { label: 'Purchase', link: '/purchase', icon: 'fas fa-shopping-bag' },
     { label: 'Manage', link: '/manage', icon: 'fas fa-cog' },
+    { label: 'Admin', link: '/signup', icon: 'fas fa-cog' },
   ];
 
-  constructor() {
+  constructor(private sessionService: SessionService) {
     if (typeof window !== 'undefined') {
       this.isSmallScreen = window.innerWidth < 768;
     }
+
+    // Fetch stored user data from session
+    this.userName = this.sessionService.getuserName() || 'User';
+    this.role = this.sessionService.getrole() || 'Role';
   }
 
-
- 
   toggleSidebar() {
     this.isSidebarHidden = !this.isSidebarHidden;
     const sidebar = document.querySelector('.sidebar') as HTMLElement;
     const outlet = document.querySelector('.outlet') as HTMLElement;
 
-    // Toggle the 'show' class on the sidebar for smooth animation
     if (this.isSidebarHidden) {
       sidebar.classList.remove('show');
       outlet.classList.remove('sidebar-visible');
@@ -43,7 +49,6 @@ export class SidebarComponent {
       outlet.classList.add('sidebar-visible');
     }
   }
-
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -57,6 +62,6 @@ export class SidebarComponent {
 
   logout() {
     console.log('Logout clicked');
-   
+    this.sessionService.deleteSessions(); // Clear session on logout
   }
 }

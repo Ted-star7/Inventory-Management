@@ -34,12 +34,11 @@ export class LoginComponent {
     this.router.navigate(['/resetpassword']);
   }
 
-  resetform(): void{
-    this.email ='';
-    this.password ='';
-    this.role='';
+  resetform(): void {
+    this.email = '';
+    this.password = '';
+    this.role = '';
   }
-
   onLogin(): void {
     const formData = {
       email: this.email,
@@ -49,45 +48,49 @@ export class LoginComponent {
 
     this.consumeService.postRequest('/api/open/users/login', formData, null).subscribe(
       (response) => {
-        response = JSON.parse(response);
+        console.log('Full response:', response);
 
-        // Check if the response contains the message and token
-        if (response.status === 'success' ) {
-          const token = response.token;
-          const userId = response.userId;
-          const role = response.role;
-          const userName = response.userName;
+        // Ensure the response is an object
+        if (typeof response === 'string') {
+          try {
+            response = JSON.parse(response);
+          } catch (error) {
+            console.error('Failed to parse response:', error);
+            this.snackBar.open('Login Failed: Invalid response format', 'Close', { duration: 5000 });
+            return;
+          }
+        }
 
-          if (token && userId) {
+        // Check if all required fields exist in response
+        if (response && response.status && response.token && response.id !== undefined && response.role && response.username) {
+          if (response.status.trim().toLowerCase() === 'success') {
+            const token = response.token;
+            const userId = response.id;
+            const role = response.role;
+            const userName = response.username;
+
             // Save session data
             this.sessionService.saveToken(token);
             this.sessionService.saveUserId(userId);
             this.sessionService.saverole(role);
             this.sessionService.saveuserName(userName);
 
-            this.snackBar.open('Login Successful', 'Close', {
-              duration: 3000,
-            });
+            this.snackBar.open('Login Successful', 'Close', { duration: 3000 });
             this.resetform();
-            this.router.navigate(['/dashboard']);  // Navigate to dashboard
+            this.router.navigate(['/dashboard']);
           } else {
-            console.error('Token or userId is undefined or null');
-            this.snackBar.open('Login Failed: Invalid response from server', 'Close', {
-              duration: 5000,
-            });
+            console.error('Login failed:', response);
+            this.snackBar.open('Login Failed: ' + (response.message || 'Unexpected error'), 'Close', { duration: 5000 });
           }
         } else {
-          console.error('Login failed or unexpected response:', response);
-          this.snackBar.open('Login Failed: ' + response.message, 'Close', {
-            duration: 5000,
-          });
+          console.error('Invalid response format:', response);
+          this.snackBar.open('Login Failed: Invalid response format', 'Close', { duration: 5000 });
         }
       },
       (error) => {
         console.error('Login error:', error);
-        this.snackBar.open('Login Failed', 'Close', {
-          duration: 5000,
-        });
+        const errorMsg = error.error?.message || 'Network error';
+        this.snackBar.open('Login Failed: ' + errorMsg, 'Close', { duration: 5000 });
       }
     );
   }

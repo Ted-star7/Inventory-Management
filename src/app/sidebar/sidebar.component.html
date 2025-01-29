@@ -5,13 +5,14 @@
   [class.translate-x-0]="!isSidebarHidden || !isSmallScreen"
 >
   <!-- Profile Section -->
-  <div class="flex flex-col items-center mb-4">
-    <i class="fas fa-user-circle text-5xl text-white mb-3"></i>
-    <div class="text-center">
-      <h2 class="text-base font-semibold">Teddy Kibuthu</h2>
-      <p class="text-sm text-gray-300">teddykibuthu26&#64;gmail.com</p>
-    </div>
+<div class="flex flex-col items-center mb-4">
+  <i class="fas fa-user-circle text-5xl text-white mb-3"></i>
+  <div class="text-center">
+    <h2 class="text-base font-semibold">{{ userName }}</h2>
+    <p class="text-sm text-gray-300">{{ role }}</p>
   </div>
+</div>
+
 
   <!-- Navigation Links -->
   <nav>
