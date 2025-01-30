@@ -15,7 +15,7 @@ import { NgFor, NgClass } from '@angular/common';
 })
 export class ManageComponent implements OnInit {
   users: any[] = [];
-  token: string | null = null; // Ensure you have the token here or retrieve it from your authentication flow
+  token: string | null = null; 
 
   constructor(
     private router: Router,
@@ -24,15 +24,15 @@ export class ManageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.token = this.sessionService.getToken(); // Retrieve token from session
+    this.token = this.sessionService.getToken(); 
     if (!this.token) {
       console.error('Token not found! Please log in.');
       return;
     }
-    this.getUsers(); // Fetch users if token is available
+    this.getUsers();
   }
 
-  // Fetch users from the API
+  
   getUsers(): void {
     if (!this.token) {
       console.error('Token is missing!');
@@ -60,7 +60,7 @@ export class ManageComponent implements OnInit {
     this.consumeService.putRequest(`/api/open/users/activate/${userId}`, {}, this.token).subscribe(
       (response) => {
         console.log('User activated:', response);
-        this.getUsers(); // Refresh the users list
+        this.getUsers(); 
       },
       (error) => {
         console.error('Error activating user:', error);
@@ -86,7 +86,7 @@ export class ManageComponent implements OnInit {
     );
   }
 
-  // Navigate to the sign-up page
+ 
   navigatesignup(): void {
     this.router.navigate(['/signup']);
   }

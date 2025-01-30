@@ -19,9 +19,9 @@ export class SidebarComponent {
 
   navItems = [
     { label: 'Dashboard', link: '/dashboard', icon: 'fas fa-tachometer-alt' },
+    { label: 'Stock in', link: '/purchase', icon: 'fas fa-shopping-bag' },
+    { label: 'Stock out', link: '/orders', icon: 'fas fa-shopping-cart' },
     { label: 'Inventory', link: '/inventory', icon: 'fas fa-boxes' },
-    { label: 'Orders', link: '/orders', icon: 'fas fa-shopping-cart' },
-    { label: 'Purchase', link: '/purchase', icon: 'fas fa-shopping-bag' },
   ];
 
   constructor(private sessionService: SessionService) {
