@@ -1,1 +1,97 @@
-<p>orders works!</p>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-6">
+    <div class="bg-white shadow-lg rounded-lg p-8">
+      <div class="flex items-center mb-6">
+        <img
+          alt="Company logo placeholder"
+          class="w-12 h-12 rounded-full mr-4"
+          src="/assets/signup.jpg"
+        />
+        <h2 class="text-3xl font-bold">Stock Out</h2>
+      </div>
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="col-span-1">
+          <label class="block text-sm font-medium text-gray-700" for="name">
+            Name
+          </label>
+          <input
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            id="name"
+            name="name"
+            type="text"
+          />
+        </div>
+        <div class="col-span-1">
+          <label class="block text-sm font-medium text-gray-700" for="quantity">
+            Quantity
+          </label>
+          <input
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            id="quantity"
+            name="quantity"
+            type="number"
+          />
+        </div>
+        <div class="col-span-1">
+          <label
+            class="block text-sm font-medium text-gray-700"
+            for="stockType"
+          >
+            Stock Type
+          </label>
+          <input
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            id="stockType"
+            name="stockType"
+            type="text"
+          />
+        </div>
+        <div class="col-span-1">
+          <label class="block text-sm font-medium text-gray-700" for="date">
+            Date
+          </label>
+          <input
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            id="date"
+            name="date"
+            type="datetime-local"
+          />
+        </div>
+        <div class="col-span-2">
+          <label
+            class="block text-sm font-medium text-gray-700"
+            for="description"
+          >
+            Description
+          </label>
+          <textarea
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            id="description"
+            name="description"
+            rows="4"
+          ></textarea>
+        </div>
+        <div class="col-span-2">
+          <label class="block text-sm font-medium text-gray-700" for="receiver">
+            Receiver
+          </label>
+          <input
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            id="receiver"
+            name="receiver"
+            type="text"
+          />
+        </div>
+        <div class="col-span-2 flex justify-end">
+          <button
+            class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-transform transform hover:scale-105"
+            type="submit"
+          >
+            <i class="fas fa-save mr-2"> </i>
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>

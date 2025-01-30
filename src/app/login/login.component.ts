@@ -5,11 +5,13 @@ import { SessionService } from '../services/session.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatSnackBarModule, FormsModule, HttpClientModule],
+  imports: [MatSnackBarModule, FormsModule, HttpClientModule, CommonModule, NgIf],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -19,6 +21,7 @@ export class LoginComponent {
   role: string | undefined;
   showPassword: boolean = false; // Toggles password visibility
   isPasswordVisible: any;
+  loading: boolean = false
 
   constructor(
     private router: Router,
@@ -40,6 +43,7 @@ export class LoginComponent {
     this.role = '';
   }
   onLogin(): void {
+    this.loading = true
     const formData = {
       email: this.email,
       password: this.password,
@@ -48,6 +52,7 @@ export class LoginComponent {
 
     this.consumeService.postRequest('/api/open/users/login', formData, null).subscribe(
       (response) => {
+        this.loading = false
         console.log('Full response:', response);
 
         // Ensure the response is an object
@@ -57,6 +62,7 @@ export class LoginComponent {
           } catch (error) {
             console.error('Failed to parse response:', error);
             this.snackBar.open('Login Failed: Invalid response format', 'Close', { duration: 5000 });
+            this.loading = false;
             return;
           }
         }
@@ -85,12 +91,14 @@ export class LoginComponent {
         } else {
           console.error('Invalid response format:', response);
           this.snackBar.open('Login Failed: Invalid response format', 'Close', { duration: 5000 });
+          this.loading = false;
         }
       },
       (error) => {
         console.error('Login error:', error);
         const errorMsg = error.error?.message || 'Network error';
         this.snackBar.open('Login Failed: ' + errorMsg, 'Close', { duration: 5000 });
+        this.loading = false;
       }
     );
   }

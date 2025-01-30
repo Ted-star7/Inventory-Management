@@ -1,10 +1,19 @@
-<div class="flex items-center justify-center min-h-screen bg-gray-100 w-full mr-5">
-  <div class="bg-white shadow-lg rounded-lg flex flex-col md:flex-row max-w-4xl w-full">
-    
+<div
+  class="flex items-center justify-center min-h-screen bg-gray-100 w-full mr-5"
+>
+  <div
+    class="bg-white shadow-lg rounded-lg flex flex-col md:flex-row max-w-4xl w-full"
+  >
     <!-- Left Side (Image Section) -->
-    <div class="w-full md:w-1/2 bg-blue-100 p-8 flex items-center justify-center">
+    <div
+      class="w-full md:w-1/2 bg-blue-100 p-8 flex items-center justify-center"
+    >
       <div>
-        <img src="/assets/signup.jpg" alt="Illustration of inventory management" class="w-full max-w-sm rounded-lg shadow-md" />
+        <img
+          src="/assets/signup.jpg"
+          alt="Illustration of inventory management"
+          class="w-full max-w-sm rounded-lg shadow-md"
+        />
       </div>
     </div>
 
@@ -17,19 +26,39 @@
         <!-- Username Field -->
         <div class="mb-4">
           <label class="block text-gray-700">Username</label>
-          <input [(ngModel)]="userName" name="userName" type="text" required class="w-full border border-blue-500 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your username" />
+          <input
+            [(ngModel)]="userName"
+            name="userName"
+            type="text"
+            required
+            class="w-full border border-blue-500 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your username"
+          />
         </div>
 
         <!-- Email Field -->
         <div class="mb-4">
           <label class="block text-gray-700">Email</label>
-          <input [(ngModel)]="email" name="email" type="email" required class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your email" />
+          <input
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            required
+            class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter your email"
+          />
         </div>
 
         <!-- Role Selection -->
         <div class="mb-4">
           <label class="block text-gray-700">Role</label>
-          <select [(ngModel)]="role" name="role" required (change)="onRoleChange()" class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <select
+            [(ngModel)]="role"
+            name="role"
+            required
+            (change)="onRoleChange()"
+            class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
             <option value="SuperAdmin">Superadmin</option>
             <option value="Admin">Admin</option>
           </select>
@@ -38,12 +67,25 @@
         <!-- Password Field (Only visible if role is SuperAdmin) -->
         <div *ngIf="showPasswordField" class="mb-4 relative">
           <label class="block text-gray-700">Password</label>
-          <input [(ngModel)]="password" name="password" [type]="isPasswordVisible ? 'text' : 'password'" required class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10" placeholder="Enter your password" />
-          <i class="fas fa-eye absolute right-3 top-10 text-gray-500 cursor-pointer" (click)="togglePasswordVisibility()"></i>
+          <input
+            [(ngModel)]="password"
+            name="password"
+            [type]="isPasswordVisible ? 'text' : 'password'"
+            required
+            class="w-full border border-gray-300 rounded-lg p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10"
+            placeholder="Enter your password"
+          />
+          <i
+            class="fas fa-eye absolute right-3 top-10 text-gray-500 cursor-pointer"
+            (click)="togglePasswordVisibility()"
+          ></i>
         </div>
 
         <!-- Register Button -->
-        <button type="submit" class="w-full bg-blue-600 text-white rounded-lg p-2 mt-4 hover:bg-blue-700 transition-all duration-200">
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white rounded-lg p-2 mt-4 hover:bg-blue-700 transition-all duration-200"
+        >
           Register
         </button>
       </form>

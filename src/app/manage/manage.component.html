@@ -30,6 +30,11 @@
               <th
                 class="py-3 px-6 text-left text-sm font-semibold text-gray-700 uppercase"
               >
+                Role
+              </th>
+              <th
+                class="py-3 px-6 text-left text-sm font-semibold text-gray-700 uppercase"
+              >
                 Email
               </th>
               <th
@@ -57,6 +62,7 @@
                   {{ user.status }}
                 </span>
               </td>
+              <td class="py-3 px-6">{{ user.role }}</td>
               <td class="py-3 px-6">{{ user.email }}</td>
               <td class="py-3 px-6 text-center">
                 <div class="flex flex-col space-y-2">
