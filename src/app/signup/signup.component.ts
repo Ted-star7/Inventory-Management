@@ -4,21 +4,22 @@ import { ConsumeService } from '../services/consume.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [MatSnackBarModule, FormsModule, HttpClientModule],
+  imports: [MatSnackBarModule, FormsModule, HttpClientModule, NgIf],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
-
   userName: string | undefined;
   email: string | undefined;
   password: string | undefined;
   role: string | undefined;
   isPasswordVisible: boolean = false;
+  showPasswordField: boolean = true; 
 
   constructor(
     private router: Router,
@@ -62,11 +63,16 @@ export class SignupComponent {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
-  
   resetForm(): void {
     this.userName = '';
     this.email = '';
     this.password = '';
     this.role = '';
+    this.showPasswordField = true; // Reset visibility on form reset
+  }
+
+ 
+  onRoleChange() {
+    this.showPasswordField = this.role === 'SuperAdmin';
   }
 }

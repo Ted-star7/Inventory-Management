@@ -1,275 +1,78 @@
 <body class="bg-gray-100 font-roboto">
-  <div class="container mx-auto p-4">
-    <div class="bg-white shadow-md rounded-lg p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold">Superadmin Panel</h1>
+  <div class="container mx-auto p-6 max-w-5xl">
+    <div class="bg-white shadow-lg rounded-xl p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-700">Superadmin Panel</h1>
         <button
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          class="bg-blue-600 text-white px-5 py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+          (click)="navigatesignup()"
         >
-          <i class="fas fa-plus mr-2" (click)="navigatesignup()"></i>Add Admin
+          <i class="fas fa-plus mr-2"></i>Add Admin
         </button>
       </div>
+
       <div class="overflow-x-auto">
-        <table class="min-w-full bg-white">
-          <thead>
+        <table
+          class="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden"
+        >
+          <thead class="bg-gray-200">
             <tr>
               <th
-                class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider"
+                class="py-3 px-6 text-left text-sm font-semibold text-gray-700 uppercase"
               >
                 Username
               </th>
-              
               <th
-                class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider"
+                class="py-3 px-6 text-left text-sm font-semibold text-gray-700 uppercase"
               >
                 Status
               </th>
               <th
-                class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider"
+                class="py-3 px-6 text-left text-sm font-semibold text-gray-700 uppercase"
+              >
+                Email
+              </th>
+              <th
+                class="py-3 px-6 text-center text-sm font-semibold text-gray-700 uppercase"
               >
                 Actions
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin1</td>
-              <td class="py-2 px-4 border-b border-gray-200">Active</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
+            <tr
+              *ngFor="let user of users"
+              class="border-b hover:bg-gray-100 transition duration-200"
+            >
+              <td class="py-3 px-6">{{ user.userName }}</td>
+              <td class="py-3 px-6">
+                <span
+                  [ngClass]="{
+                    'bg-green-100 text-green-600 px-3 py-1 rounded-full':
+                      user.status === 'Active',
+                    'bg-red-100 text-red-600 px-3 py-1 rounded-full':
+                      user.status === 'Inactive'
+                  }"
                 >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
+                  {{ user.status }}
+                </span>
               </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin2</td>
-              <td class="py-2 px-4 border-b border-gray-200">Inactive</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin3</td>
-              <td class="py-2 px-4 border-b border-gray-200">Active</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin4</td>
-              <td class="py-2 px-4 border-b border-gray-200">Inactive</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin5</td>
-              <td class="py-2 px-4 border-b border-gray-200">Active</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin6</td>
-              <td class="py-2 px-4 border-b border-gray-200">Inactive</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin7</td>
-              <td class="py-2 px-4 border-b border-gray-200">Active</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin8</td>
-              <td class="py-2 px-4 border-b border-gray-200">Inactive</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin9</td>
-              <td class="py-2 px-4 border-b border-gray-200">Active</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin10</td>
-              <td class="py-2 px-4 border-b border-gray-200">Inactive</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin11</td>
-              <td class="py-2 px-4 border-b border-gray-200">Active</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin12</td>
-              <td class="py-2 px-4 border-b border-gray-200">Inactive</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin13</td>
-              <td class="py-2 px-4 border-b border-gray-200">Active</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin14</td>
-              <td class="py-2 px-4 border-b border-gray-200">Inactive</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td class="py-2 px-4 border-b border-gray-200">admin15</td>
-              <td class="py-2 px-4 border-b border-gray-200">Active</td>
-              <td class="py-2 px-4 border-b border-gray-200">
-                <button
-                  class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 mr-2"
-                >
-                  Deactivate
-                </button>
-                <button
-                  class="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
-                >
-                  Activate
-                </button>
+              <td class="py-3 px-6">{{ user.email }}</td>
+              <td class="py-3 px-6 text-center">
+                <div class="flex flex-col space-y-2">
+                  <button
+                    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-300"
+                    (click)="deactivateUser(user.id)"
+                  >
+                    Deactivate
+                  </button>
+                  <button
+                    class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-300"
+                    (click)="activateUser(user.id)"
+                  >
+                    Activate
+                  </button>
+                </div>
               </td>
             </tr>
           </tbody>

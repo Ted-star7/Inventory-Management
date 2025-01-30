@@ -38,6 +38,30 @@ export class ConsumeService {
         catchError(this.handleError)
       );
   }
+
+  // GET Request
+  public getRequest(endpoint: string, token: string | null): Observable<any> {
+    const headers = new HttpHeaders({
+      "Authorization": `Bearer ${token}`,
+    });
+    return this.httpClient.get(`${this.url}${endpoint}`, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  // PUT Request
+  public putRequest(endpoint: string, data: any, token: string | null): Observable<any> {
+    const headers = new HttpHeaders({
+      "Authorization": `Bearer ${token}`,
+      "Content-type": "application/json",
+    });
+
+    return this.httpClient.put(`${this.url}${endpoint}`, JSON.stringify(data), { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
     if (error.error instanceof ErrorEvent) {
@@ -49,16 +73,7 @@ export class ConsumeService {
     return throwError(errorMessage);
   }
 
-  public getRequest(endpoint: string, token: string | null): Observable<any> {
-    const headers = new HttpHeaders({
-      "Authorization": `Bearer ${token}`,
-      // "ngrok-skip-browser-warning": "6024"
-    });
-    return this.httpClient.get(`${this.url}${endpoint}`, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+ 
 
   public getUrl() {
     return this.url;

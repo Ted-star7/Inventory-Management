@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { SessionService } from '../services/session.service'; 
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,8 +22,6 @@ export class SidebarComponent {
     { label: 'Inventory', link: '/inventory', icon: 'fas fa-boxes' },
     { label: 'Orders', link: '/orders', icon: 'fas fa-shopping-cart' },
     { label: 'Purchase', link: '/purchase', icon: 'fas fa-shopping-bag' },
-    { label: 'Manage', link: '/manage', icon: 'fas fa-cog' },
-    { label: 'Admin', link: '/signup', icon: 'fas fa-cog' },
   ];
 
   constructor(private sessionService: SessionService) {
@@ -34,6 +32,14 @@ export class SidebarComponent {
     // Fetch stored user data from session
     this.userName = this.sessionService.getuserName() || 'User';
     this.role = this.sessionService.getrole() || 'Role';
+
+    // Add 'Manage' and 'Admin' links only if the user is a Superadmin
+    if (this.role.toLowerCase() === 'superadmin') {
+      this.navItems.push(
+        { label: 'Manage', link: '/manage', icon: 'fas fa-cog' },
+        { label: 'Admin', link: '/signup', icon: 'fas fa-cog' }
+      );
+    }
   }
 
   toggleSidebar() {
