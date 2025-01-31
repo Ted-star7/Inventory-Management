@@ -4,11 +4,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ConsumeService } from '../services/consume.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatSnackBarModule],
+  imports: [FormsModule, CommonModule, MatSnackBarModule, HttpClientModule],
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css'],
   providers: [MatSnackBar],
