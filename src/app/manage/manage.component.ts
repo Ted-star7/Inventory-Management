@@ -41,8 +41,15 @@ export class ManageComponent implements OnInit {
 
     this.consumeService.getRequest('/api/open/superadmin/users', this.token).subscribe(
       (data) => {
-        this.users = data; // Store users data
-        console.log('Users fetched successfully:', this.users);
+        console.log('Raw API Response:', data); // Debugging Step 1
+        this.users = data.map((user: any) => ({
+          id: user.id || user.userId || user._id,  
+          userName: user.userName,
+          status: user.status,
+          role: user.role,
+          email: user.email,
+        }));
+        console.log('Formatted Users:', this.users); // Debugging Step 2
       },
       (error) => {
         console.error('Error fetching users:', error);
@@ -58,33 +65,58 @@ export class ManageComponent implements OnInit {
     }
 
     this.consumeService.putRequest(`/api/open/users/activate/${userId}`, {}, this.token).subscribe(
-      (response) => {
-        console.log('User activated:', response);
-        this.getUsers(); 
+      (response: any) => {
+        if (response.status === 200) {
+          console.log('User activated successfully:', response.message);
+          alert(`Success: ${response.message}`); // Display message
+          this.getUsers(); // Refresh user list
+        } else {
+          console.error('Activation failed:', response.message);
+          alert(`Error: ${response.message}`);
+        }
       },
       (error) => {
         console.error('Error activating user:', error);
+        alert('Failed to activate user. Please try again.');
       }
     );
   }
 
   // Deactivate a user
-  deactivateUser(userId: string): void {
+  deactivateUser(userId: string | undefined): void {
+    if (!userId) {
+      console.error('Error: User ID is undefined!');
+      alert('Error: User ID is missing.');
+      return;
+    }
+
     if (!this.token) {
       console.error('Token is missing!');
       return;
     }
 
+    console.log(`Deactivating user with ID: ${userId}`);
+
     this.consumeService.putRequest(`/api/open/users/deactivate/${userId}`, {}, this.token).subscribe(
-      (response) => {
-        console.log('User deactivated:', response);
-        this.getUsers(); // Refresh the users list
+      (response: any) => {
+        if (response.status === 200) {
+          console.log('User deactivated successfully:', response.message);
+          alert(`Success: ${response.message}`);
+          this.getUsers();
+        } else {
+          console.error('Deactivation failed:', response.message);
+          alert(`Error: ${response.message}`);
+        }
       },
       (error) => {
         console.error('Error deactivating user:', error);
+        alert('Failed to deactivate user. Please try again.');
       }
     );
   }
+
+
+
 
  
   navigatesignup(): void {

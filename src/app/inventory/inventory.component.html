@@ -7,21 +7,20 @@
       <div class="flex space-x-2">
         <input
           type="date"
-          id="searchDate"
           class="p-2 border border-gray-300 rounded"
-          placeholder="Search by date"
-          oninput="filterRecords()"
+          [(ngModel)]="searchDate"
+          (input)="filterRecords()"
         />
         <input
           type="text"
-          id="searchText"
           class="p-2 border border-gray-300 rounded"
           placeholder="Search by name or supplier"
-          oninput="filterRecords()"
+          [(ngModel)]="searchText"
+          (input)="filterRecords()"
         />
         <button
           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          onclick="downloadData()"
+          (click)="downloadData()"
         >
           <i class="fas fa-download"></i> Download Data
         </button>
@@ -32,37 +31,29 @@
       <table class="min-w-full bg-white">
         <thead class="bg-gray-800 text-white">
           <tr>
-            <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">
-              Name
-            </th>
-            <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">
-              Description
-            </th>
-            <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">
-              Price
-            </th>
-            <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">
-              Stock Type
-            </th>
-            <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">
-              Available Stock
-            </th>
-            <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">
-              Date
-            </th>
-            <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">
-              Supplier
-            </th>
-            <th class="w-1/12 py-3 px-4 uppercase font-semibold text-sm">
-              Dispatched Stock
-            </th>
-            <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">
-              Client
-            </th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Name</th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Description</th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Price</th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Stock Type</th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Available Stock</th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Date</th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Supplier</th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Dispatched Stock</th>
+            <th class="py-3 px-4 uppercase font-semibold text-sm">Client</th>
           </tr>
         </thead>
-        <tbody id="inventoryTable" class="text-gray-700">
-          <!-- Inventory items will be inserted here by JavaScript -->
+        <tbody class="text-gray-700">
+          <tr *ngFor="let product of filteredProducts">
+            <td class="py-2 px-4">{{ product.name }}</td>
+            <td class="py-2 px-4">{{ product.description }}</td>
+            <td class="py-2 px-4">{{ product.price }}</td>
+            <td class="py-2 px-4">{{ product.stockType }}</td>
+            <td class="py-2 px-4">{{ product.availableStock }}</td>
+            <td class="py-2 px-4">{{ product.date | date:'yyyy-MM-dd HH:mm' }}</td>
+            <td class="py-2 px-4">{{ product.supplier }}</td>
+            <td class="py-2 px-4">{{ product.dispatchedStock }}</td>
+            <td class="py-2 px-4">{{ product.client }}</td>
+          </tr>
         </tbody>
       </table>
     </div>

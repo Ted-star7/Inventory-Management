@@ -30,7 +30,7 @@ export class PurchaseComponent {
   saveProduct() {
     this.isSaving = true; 
 
-    this.consumeService.postRequest('/api/open/admin/add-product', this.product, null).subscribe(
+    this.consumeService.postRequest('/api/open/admin/add-product?userId=${userId}', this.product, null).subscribe(
       () => {
         this.isSaving = false;
         this.snackBar.open('Product saved successfully!', 'Close', { duration: 3000, panelClass: 'bg-green-500 text-white' });
