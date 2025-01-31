@@ -86,7 +86,7 @@ export class ResetPasswordComponent implements OnInit {
   onResendOtp(): void {
     if (!this.otpResendDisabled && isPlatformBrowser(this.platformId)) {
       this.consumeService
-        .postRequest('/api/open/auth/resend-otp', { email: this.email }, null)
+        .postRequest('/api/open/users/resendOtp', { email: this.email }, null)
         .subscribe(
           () => {
             this.showSnackbar('OTP resent successfully.');
