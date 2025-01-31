@@ -14,6 +14,19 @@ const browserDistFolder = resolve(serverDistFolder, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
+// Set the timeout for the SSR request handler
+const SSR_TIMEOUT = 60000; // Timeout in milliseconds (e.g., 60 seconds)
+
+// Middleware to handle timeout for SSR
+app.use((req, res, next) => {
+  res.setTimeout(SSR_TIMEOUT, () => {
+    console.error(`Request to ${req.originalUrl} timed out after ${SSR_TIMEOUT}ms`);
+    res.status(504).send('Request Timeout');
+  });
+  next();
+});
+
+
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.

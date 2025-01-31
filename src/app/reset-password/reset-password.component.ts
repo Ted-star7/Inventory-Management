@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ConsumeService } from '../services/consume.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClientModule } from '@angular/common/http';
+import { PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-reset-password',
@@ -25,13 +27,17 @@ export class ResetPasswordComponent implements OnInit {
   otpResendDisabled: boolean = true;
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     private router: Router,
     private consumeService: ConsumeService,
     private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
-    this.startOtpTimer();
+    // Only start OTP timer in the browser
+    if (isPlatformBrowser(this.platformId)) {
+      this.startOtpTimer();
+    }
   }
 
   // Show a snackbar message
@@ -55,29 +61,30 @@ export class ResetPasswordComponent implements OnInit {
 
   // Handle email submission
   onEmailSubmit(): void {
-    if (this.email) {
-      this.consumeService
-        .postRequest('/api/open/users/send-otp', { email: this.email }, null)
-        .subscribe(
-          () => {
-            this.showSnackbar('OTP has been sent to your email.');
-            this.step = 2; // Switch to Step 2
-            console.log('Step updated to:', this.step); // Debugging
-            this.startOtpTimer();
-          },
-          (error) => {
-            this.showSnackbar('Failed to send OTP. Please try again.');
-            console.error('OTP request error:', error);
-          }
-        );
+    // Avoid SSR issues by ensuring API calls only happen in the browser
+    if (isPlatformBrowser(this.platformId)) {
+      if (this.email) {
+        this.consumeService
+          .postRequest('/api/open/users/send-otp', { email: this.email }, null)
+          .subscribe(
+            () => {
+              this.showSnackbar('OTP has been sent to your email.');
+              this.step = 2; // Switch to Step 2
+              console.log('Step updated to:', this.step); // Debugging
+              this.startOtpTimer();
+            },
+            (error) => {
+              this.showSnackbar('Failed to send OTP. Please try again.');
+              console.error('OTP request error:', error);
+            }
+          );
+      }
     }
   }
 
-
-
   // Handle OTP resend
   onResendOtp(): void {
-    if (!this.otpResendDisabled) {
+    if (!this.otpResendDisabled && isPlatformBrowser(this.platformId)) {
       this.consumeService
         .postRequest('/api/open/auth/resend-otp', { email: this.email }, null)
         .subscribe(
