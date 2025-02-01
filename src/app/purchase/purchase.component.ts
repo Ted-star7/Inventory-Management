@@ -21,7 +21,7 @@ export class PurchaseComponent {
     stockType: 'Stock in',
     date: '',
     supplier: '',
-    userId: 0 // This will be set dynamically
+    userId: 0 
   };
 
   isSaving = false;
@@ -29,31 +29,31 @@ export class PurchaseComponent {
   constructor(
     private consumeService: ConsumeService,
     private snackBar: MatSnackBar,
-    private sessionService: SessionService // Inject SessionService
+    private sessionService: SessionService 
   ) { }
 
   saveProduct() {
     this.isSaving = true;
 
-    const userId = this.sessionService.getUserId(); // Get userId from session storage
+    const userId = this.sessionService.getUserId();
     if (!userId) {
       this.snackBar.open('User ID not found. Please log in again.', 'Close', { duration: 3000, panelClass: 'bg-red-500 text-white' });
       this.isSaving = false;
       return;
     }
 
-    this.product.date = new Date().toISOString(); // Format date properly
-    this.product.userId = parseInt(userId, 10); // Ensure userId is stored as a number
+    this.product.date = new Date().toISOString(); 
+    this.product.userId = parseInt(userId, 10); 
 
     this.consumeService.postRequest(`/api/open/stock-in/add?userId=${this.product.userId}`, this.product, null).subscribe(
       () => {
         this.isSaving = false;
-        this.snackBar.open('Product saved successfully!', 'Close', { duration: 3000, panelClass: 'bg-green-500 text-white' });
+        this.snackBar.open('Product saved successfully!', 'Close', { duration: 3000});
         this.clearForm();
       },
       (error) => {
         this.isSaving = false;
-        this.snackBar.open('Error saving product. Try again!', 'Close', { duration: 3000, panelClass: 'bg-red-500 text-white' });
+        this.snackBar.open('Error saving product. Try again!', 'Close', { duration: 3000});
         console.error('Error saving product:', error);
       }
     );

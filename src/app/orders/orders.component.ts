@@ -21,7 +21,7 @@ export class OrdersComponent {
     stockType: 'Stock out',
     availableStock: 0,
     date: '',
-    client: '',
+    receiver: '',
     dispatchedStock: 0,
     userId: 0 // This will be set dynamically
   };
@@ -37,7 +37,7 @@ export class OrdersComponent {
   saveProduct() {
     this.isSaving = true;
 
-    const userId = this.sessionService.getUserId(); // Get userId from session storage
+    const userId = this.sessionService.getUserId();
     if (!userId) {
       this.snackBar.open('User ID not found. Please log in again.', 'Close', {
         duration: 3000,
@@ -48,22 +48,20 @@ export class OrdersComponent {
     }
 
     this.product.date = new Date().toISOString(); 
-    this.product.userId = parseInt(userId, 10); // Convert userId to a number
+    this.product.userId = parseInt(userId, 10); 
 
     this.consumeService.postRequest(`/api/open/stock-out?userId=${this.product.userId}`, this.product, null).subscribe(
       () => {
         this.isSaving = false;
         this.snackBar.open('Product dispatched successfully!', 'Close', {
-          duration: 3000,
-          panelClass: 'bg-green-500 text-white'
+          duration: 3000
         });
         this.clearForm();
       },
       (error) => {
         this.isSaving = false;
         this.snackBar.open('Error dispatching product. Try again!', 'Close', {
-          duration: 3000,
-          panelClass: 'bg-red-500 text-white'
+          duration: 3000
         });
         console.error('Error dispatching product:', error);
       }
@@ -71,6 +69,6 @@ export class OrdersComponent {
   }
 
   clearForm() {
-    this.product = { name: '', description: '', price: 0, stockType: 'Stock out', availableStock: 0, date: '', client: '', dispatchedStock: 0, userId: 0 };
+    this.product = { name: '', description: '', price: 0, stockType: 'Stock out', availableStock: 0, date: '', receiver: '', dispatchedStock: 0, userId: 0 };
   }
 }

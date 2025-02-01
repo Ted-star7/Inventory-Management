@@ -10,11 +10,11 @@
         <h2 class="text-3xl font-bold">Stock Out</h2>
       </div>
 
-      <!-- 🔹 Use Angular form binding & submit event -->
+     
       <form (ngSubmit)="saveProduct()" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="col-span-1">
           <label class="block text-sm font-medium text-gray-700" for="name">
-            Name
+            Name of Product
           </label>
           <input
             [(ngModel)]="product.name"
@@ -28,7 +28,7 @@
 
         <div class="col-span-1">
           <label class="block text-sm font-medium text-gray-700" for="quantity">
-            Quantity
+            Price
           </label>
           <input
             [(ngModel)]="product.price"
@@ -53,6 +53,7 @@
           />
         </div>
 
+
         <div class="col-span-1">
           <label class="block text-sm font-medium text-gray-700" for="date">
             Date
@@ -62,6 +63,20 @@
             id="date"
             class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             type="datetime-local"
+          />
+        </div>
+
+          <div class="col-span-1">
+          <label class="block text-sm font-medium text-gray-700" for="quantity">
+             Quantity
+          </label>
+          <input
+            [(ngModel)]="product. dispatchedStock"
+            name=" dispatchedStock"
+            id=" dispatchedStock"
+            class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            type="number"
+            required
           />
         </div>
 
@@ -79,12 +94,14 @@
           ></textarea>
         </div>
 
+        
+
         <div class="col-span-2">
           <label class="block text-sm font-medium text-gray-700" for="receiver">
             Receiver
           </label>
           <input
-            [(ngModel)]="product.client"
+            [(ngModel)]="product.receiver"
             name="client"
             id="receiver"
             class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"

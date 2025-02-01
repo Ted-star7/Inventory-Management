@@ -1,61 +1,98 @@
-<body class="bg-gray-100">
-  <div class="container mx-auto p-9">
-    <header class="flex flex-col md:flex-row justify-between items-center py-4">
-      <h1 class="text-3xl font-bold text-gray-800 mb-4 md:mb-0">
-        Inventory Management
-      </h1>
-      <div class="flex space-x-2">
-        <input
-          type="date"
-          class="p-2 border border-gray-300 rounded"
-          [(ngModel)]="searchDate"
-          (input)="filterRecords()"
-        />
-        <input
-          type="text"
-          class="p-2 border border-gray-300 rounded"
-          placeholder="Search by name or supplier"
-          [(ngModel)]="searchText"
-          (input)="filterRecords()"
-        />
-        <button
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          (click)="downloadData()"
-        >
-          <i class="fas fa-download"></i> Download Data
-        </button>
-      </div>
-    </header>
-
-    <div class="bg-white shadow-md rounded overflow-hidden">
-      <table class="min-w-full bg-white">
-        <thead class="bg-gray-800 text-white">
-          <tr>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Name</th>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Description</th>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Price</th>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Stock Type</th>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Available Stock</th>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Date</th>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Supplier</th>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Dispatched Stock</th>
-            <th class="py-3 px-4 uppercase font-semibold text-sm">Client</th>
-          </tr>
-        </thead>
-        <tbody class="text-gray-700">
-          <tr *ngFor="let product of filteredProducts">
-            <td class="py-2 px-4">{{ product.name }}</td>
-            <td class="py-2 px-4">{{ product.description }}</td>
-            <td class="py-2 px-4">{{ product.price }}</td>
-            <td class="py-2 px-4">{{ product.stockType }}</td>
-            <td class="py-2 px-4">{{ product.availableStock }}</td>
-            <td class="py-2 px-4">{{ product.date | date:'yyyy-MM-dd HH:mm' }}</td>
-            <td class="py-2 px-4">{{ product.supplier }}</td>
-            <td class="py-2 px-4">{{ product.dispatchedStock }}</td>
-            <td class="py-2 px-4">{{ product.client }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<div class="container">
+  
+      <h1 class="text-3xl font-bold text-gray-800">Inventory Management</h1>
+  <br>
+  <div class="filters">
+    <button (click)="toggleView('stockIn')">Stock In</button>
+    <button (click)="toggleView('stockOut')">Stock Out</button>
+    <button (click)="toggleView('combined')">Combined Table</button>
   </div>
-</body>
+
+  <div class="records-count">
+    <p>Total Records: {{ totalRecords }}</p>
+  </div>
+
+  <!-- Stock In Table -->
+  <div *ngIf="currentView === 'stockIn'" class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Date</th>
+          <th>Supplier</th>
+          <th>Quantity</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of displayedRecords">
+          <td>{{ record.id }}</td>
+          <td>{{ record.date | date }}</td>
+          <td>{{ record.supplier }}</td>
+          <td>{{ record.quantity }}</td>
+          <td>{{ record.action }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Stock Out Table -->
+  <div *ngIf="currentView === 'stockOut'" class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Date</th>
+          <th>Client</th>
+          <th>Quantity</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of displayedRecords">
+          <td>{{ record.id }}</td>
+          <td>{{ record.date | date }}</td>
+          <td>{{ record.client }}</td>
+          <td>{{ record.quantity }}</td>
+          <td>{{ record.action }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Combined Table -->
+  <div *ngIf="currentView === 'combined'" class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Date</th>
+          <th>Supplier / Client</th>
+          <th>Quantity</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of displayedRecords">
+          <td>{{ record.id }}</td>
+          <td>{{ record.date | date }}</td>
+          <td>{{ record.supplier || record.client }}</td>
+          <td>{{ record.quantity }}</td>
+          <td>{{ record.action }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination">
+    <button (click)="changePage('previous')" [disabled]="currentPage === 1">Previous</button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="changePage('next')" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+
+  <div class="download-buttons">
+    <button (click)="downloadData('stockIn')">Download Stock In</button>
+    <button (click)="downloadData('stockOut')">Download Stock Out</button>
+    <button (click)="downloadData('combined')">Download Combined</button>
+  </div>
+</div>
