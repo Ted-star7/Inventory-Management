@@ -40,6 +40,19 @@
           />
         </div>
 
+           <div class="col-span-1">
+          <label class="block text-sm font-medium text-gray-700" for="price"
+            >Quantity</label
+          >
+          <input
+            [(ngModel)]="product.availableStock"
+            name="price"
+            required
+            class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-indigo-500"
+            type="number"
+          />
+        </div>
+
         <div class="col-span-1">
           <label class="block text-sm font-medium text-gray-700" for="stockType"
             >Stock Type</label

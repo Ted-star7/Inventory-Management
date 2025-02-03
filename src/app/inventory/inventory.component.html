@@ -1,11 +1,37 @@
 <div class="container">
-  
-      <h1 class="text-3xl font-bold text-gray-800">Inventory Management</h1>
-  <br>
+  <h1 class="text-3xl font-bold text-gray-800">Inventory Management</h1>
+  <br />
+
   <div class="filters">
-    <button (click)="toggleView('stockIn')">Stock In</button>
-    <button (click)="toggleView('stockOut')">Stock Out</button>
-    <button (click)="toggleView('combined')">Combined Table</button>
+    <button
+      (click)="toggleView('stockIn')"
+      [class.active]="currentView === 'stockIn'"
+    >
+      Stock In
+    </button>
+    <button
+      (click)="toggleView('stockOut')"
+      [class.active]="currentView === 'stockOut'"
+    >
+      Stock Out
+    </button>
+    <button
+      (click)="toggleView('combined')"
+      [class.active]="currentView === 'combined'"
+    >
+      Combined Table
+    </button>
+
+    <!-- Date Filter Input -->
+    <div class="date-filter">
+      <label for="filterDate">Filter by Date:</label>
+      <input
+        type="date"
+        id="filterDate"
+        [(ngModel)]="filterDate"
+        (change)="applyDateFilter()"
+      />
+    </div>
   </div>
 
   <div class="records-count">
@@ -17,19 +43,25 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Transaction ID</th>
+          <th>Num</th>
           <th>Date</th>
+          <th>Product Name</th>
           <th>Supplier</th>
-          <th>Quantity</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Available Stock</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let record of displayedRecords">
-          <td>{{ record.id }}</td>
+        <tr *ngFor="let record of displayedRecords; let i = index">
+          <td>{{ (currentPage - 1) * recordsPerPage + i + 1 }}</td>
           <td>{{ record.date | date }}</td>
+          <td>{{ record.name }}</td>
           <td>{{ record.supplier }}</td>
-          <td>{{ record.quantity }}</td>
+          <td>{{ record.description }}</td>
+          <td>{{ record.price }}</td>
+          <td>{{ record.availableStock }}</td>
           <td>{{ record.action }}</td>
         </tr>
       </tbody>
@@ -41,19 +73,25 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Transaction ID</th>
+          <th>Num</th>
           <th>Date</th>
           <th>Client</th>
-          <th>Quantity</th>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Dispatched Stock</th>
+          <th>Available Stock</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let record of displayedRecords">
-          <td>{{ record.id }}</td>
+        <tr *ngFor="let record of displayedRecords; let i = index">
+          <td>{{ (currentPage - 1) * recordsPerPage + i + 1 }}</td>
           <td>{{ record.date | date }}</td>
-          <td>{{ record.client }}</td>
-          <td>{{ record.quantity }}</td>
+          <td>{{ record.receiver }}</td>
+          <td>{{ record.name }}</td>
+          <td>{{ record.price }}</td>
+          <td>{{ record.dispatchedStock }}</td>
+          <td>{{ record.availableStock }}</td>
           <td>{{ record.action }}</td>
         </tr>
       </tbody>
@@ -65,19 +103,25 @@
     <table class="table">
       <thead>
         <tr>
-          <th>Transaction ID</th>
+         <th>Num</th>
           <th>Date</th>
           <th>Supplier / Client</th>
-          <th>Quantity</th>
+          <th>Description</th>
+          <th>Product Name</th>
+          <th>Price</th>
+          <th>Available Stock</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let record of displayedRecords">
-          <td>{{ record.id }}</td>
+        <tr *ngFor="let record of displayedRecords; let i = index">
+          <td>{{ (currentPage - 1) * recordsPerPage + i + 1 }}</td>
           <td>{{ record.date | date }}</td>
-          <td>{{ record.supplier || record.client }}</td>
-          <td>{{ record.quantity }}</td>
+          <td>{{ record.supplier || record.receiver }}</td>
+          <td>{{ record.description || "-" }}</td>
+          <td>{{ record.name || "-" }}</td>
+          <td>{{ record.price }}</td>
+          <td>{{ record.availableStock }}</td>
           <td>{{ record.action }}</td>
         </tr>
       </tbody>
@@ -85,9 +129,16 @@
   </div>
 
   <div class="pagination">
-    <button (click)="changePage('previous')" [disabled]="currentPage === 1">Previous</button>
+    <button (click)="changePage('previous')" [disabled]="currentPage === 1">
+      Previous
+    </button>
     <span>{{ currentPage }} / {{ totalPages }}</span>
-    <button (click)="changePage('next')" [disabled]="currentPage === totalPages">Next</button>
+    <button
+      (click)="changePage('next')"
+      [disabled]="currentPage === totalPages"
+    >
+      Next
+    </button>
   </div>
 
   <div class="download-buttons">

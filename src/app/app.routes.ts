@@ -9,18 +9,19 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { ManageComponent } from './manage/manage.component';
 import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './services/auth.service';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent }, // Default route (Login Page)
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'orders', component: OrdersComponent},
-  { path: 'purchase', component: PurchaseComponent},
-  { path: 'sidebar', component: SidebarComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'inventory', component: InventoryComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
+  { path: 'purchase', component: PurchaseComponent, canActivate: [AuthGuard] },
+  { path: 'sidebar', component: SidebarComponent, canActivate: [AuthGuard] },
+  { path: 'signup', component: SignupComponent, canActivate: [AuthGuard] },
+  { path: 'inventory', component: InventoryComponent, canActivate: [AuthGuard] },
   { path: 'resetpassword', component: ResetPasswordComponent},
-  { path: 'manage', component: ManageComponent},
-  { path: 'admin', component: AdminComponent},
+  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard] },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' }, // Fallback route
 ];
 

@@ -17,6 +17,7 @@ export class PurchaseComponent {
   product = {
     name: '',
     description: '',
+    availableStock: '',
     price: 0,
     stockType: 'Stock in',
     date: '',
@@ -60,6 +61,6 @@ export class PurchaseComponent {
   }
 
   clearForm() {
-    this.product = { name: '', description: '', price: 0, stockType: 'Stock in', date: '', supplier: '', userId: 0 };
+    this.product = { name: '', description: '', price: 0, stockType: 'Stock in', availableStock: '', date: '', supplier: '', userId: 0 };
   }
 }

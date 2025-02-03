@@ -8,27 +8,41 @@ import { FormsModule } from '@angular/forms';
 interface StockInRecord {
   id: number;
   date: string;
+  name: string;
   supplier: string;
-  quantity: number;
+  price: number;
+  description: string;
+  availableStock: number;
   action: 'Stock In';
 }
 
 interface StockOutRecord {
   id: number;
   date: string;
+  name: string;
   client: string;
+  receiver: string;
   quantity: number;
+  price: number;
+  availableStock: number;
+  dispatchedStock: number;
   action: 'Stock Out';
 }
-
 interface CombinedStockRecord {
   id: number;
   date: string;
+  name: string;
   supplier?: string;
+  receiver?: string;
   client?: string;
-  quantity: number;
+  dispatchedStock?: number;
+  quantity?: number;  // Make quantity optional
+  price: number;
+  description?: string;
+  availableStock: number;
   action: 'Stock In' | 'Stock Out';
 }
+
 
 @Component({
   selector: 'app-inventory',
@@ -50,6 +64,7 @@ export class InventoryComponent implements OnInit {
   currentView: 'stockIn' | 'stockOut' | 'combined' = 'combined';
   token: string | null = null;
   userId: string | null = null;
+  filterDate: string | null = null;
 
   constructor(
     private consumeService: ConsumeService,
@@ -59,11 +74,9 @@ export class InventoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Fetch the token and user ID from session service
     this.token = this.sessionService.getToken();
     this.userId = this.sessionService.getUserId();
 
-    // Check if token is available
     if (this.token && this.userId) {
       this.fetchStockInRecords();
       this.fetchStockOutRecords();
@@ -117,13 +130,26 @@ export class InventoryComponent implements OnInit {
   }
 
   getDisplayedRecords(): CombinedStockRecord[] {
+    let records: CombinedStockRecord[] = [];
     if (this.currentView === 'stockIn') {
-      return this.stockInRecords.map(item => ({ ...item, action: 'Stock In' }));
+      records = this.stockInRecords.map(item => ({ ...item, action: 'Stock In' }));
+    } else if (this.currentView === 'stockOut') {
+      records = this.stockOutRecords.map(item => ({ ...item, action: 'Stock Out' }));
+    } else {
+      records = this.combinedRecords;
     }
-    if (this.currentView === 'stockOut') {
-      return this.stockOutRecords.map(item => ({ ...item, action: 'Stock Out' }));
+
+    // Apply date filter if a date is selected
+    if (this.filterDate) {
+      console.log('Filter Date:', this.filterDate);
+      records = records.filter(record => {
+        const recordDate = new Date(record.date).toISOString().split('T')[0];
+        console.log('Record Date:', recordDate);
+        return recordDate === this.filterDate;
+      });
     }
-    return this.combinedRecords;
+
+    return records;
   }
 
   toggleView(view: 'stockIn' | 'stockOut' | 'combined'): void {
@@ -170,5 +196,11 @@ export class InventoryComponent implements OnInit {
     const header = Object.keys(data[0]).join(',');
     const rows = data.map(record => Object.values(record).join(',')).join('\n');
     return `${header}\n${rows}`;
+  }
+
+  // Add method to apply date filter
+  applyDateFilter(): void {
+    this.currentPage = 1; // Reset to the first page when applying a filter
+    this.updatePageData();
   }
 }
